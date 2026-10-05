@@ -10,7 +10,25 @@ import { errorHandler } from "./middleware/errorHandler";
 export function createApp() {
   const app = express();
 
-  app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
+  const allowedOrigins = [
+    env.FRONTEND_URL,
+    "http://localhost:4200",
+    "https://app-sooty-pi-51.vercel.app",
+  ];
+
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+          return;
+        }
+
+        callback(new Error(`Origin not allowed by CORS: ${origin}`));
+      },
+      credentials: true,
+    })
+  );
   app.use(pinoHttp({ logger }));
   app.use(cookieParser());
 
