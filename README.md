@@ -97,3 +97,5 @@ against each provider's current dashboard.
 - GitHub App / JWT installation tokens (uses a simpler OAuth App flow instead).
 - A message broker for background jobs — the worker (`backend/src/jobs/worker.ts`)
   is a simple in-process DB-polling loop, sufficient for the MVP's scale.
+
+testing rule
